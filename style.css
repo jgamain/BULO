@@ -1,0 +1,51 @@
+body {
+	margin-top: 110px; /* place du header */
+	padding-top: 40px;
+	background-color: #f8f8f8;
+	box-shadow:0 0 50px 0 #ddd inset;
+}
+
+/* header */
+ul.navbar-nav>li>a {
+	text-align: center;
+	padding-top: 30px;
+}
+.navbar-inner{
+	padding: 0px  70px;
+}
+.navbar{
+	height: 110px;
+}
+.navbar-brand{
+	padding: 0 0 10px 0;
+	height: 80px;
+}
+img.logo{
+	max-height: 100%;
+	width: auto;
+}
+
+/* formulaire de connexion */
+.form-popover{
+	width: 300px;
+}
+.form-popover input{
+	width: 240px;
+}
+
+/* carousel */
+.item{
+	height: 500px;
+}
+.item img{
+	margin: auto;
+}
+.carousel{
+	margin-bottom: 40px;
+}
+.carousel-caption{
+	left: 12%;
+	right: 12%;
+	background: #666;
+	background: rgba(0, 0, 0,0.7);
+}
