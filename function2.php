@@ -20,7 +20,7 @@
 
 if (isset($_POST['title'], $_POST['author']) && (!empty($_POST['title'])) && (!empty($_POST['author'])) )
 {
-	if ($stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre FROM livre NATURAL JOIN auteur WHERE lower(titre) LIKE lower(?) AND lower(nomAuteur) = ? '))
+	if ($stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur WHERE lower(titre) LIKE lower(?) AND lower(nomAuteur) = ? '))
 	{
 	$tit= "%".$_POST['title']."%";
 	$aut= $_POST['author'];
@@ -40,7 +40,7 @@ if (isset($_POST['title'], $_POST['author']) && (!empty($_POST['title'])) && (!e
 else if (isset($_POST['author']) && (!empty($_POST['author'])) )
 {
 
-$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre FROM livre NATURAL JOIN auteur WHERE lower(nomAuteur) = ?');
+$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur WHERE lower(nomAuteur) = ?');
 $stmt->bind_param("s", $_POST['author']);
 $stmt->execute();
 $stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
@@ -52,12 +52,10 @@ $stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
 	}
 
 }
-else 
+else if (isset($_POST['title']) && (!empty($_POST['title'])) )
 {
-	if (isset($_POST['title']) && (!empty($_POST['title'])) )
+	if ($stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur WHERE lower(titre) LIKE lower(?)'))
 	{
-		if ($stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre FROM livre NATURAL JOIN auteur WHERE lower(titre) LIKE lower(?)'))
-		{
 		$titre = "%".$_POST['title']."%";
 		$stmt->bind_param("s", $titre);
 		$stmt->execute();
@@ -67,8 +65,10 @@ else
 				printf(" %s %s %s\n", $nomAuteur, $prenomAuteur, $titre);
 				echo "<br/>";
 			}
-		}
 	}
+}
+else{
+	echo "Vous devez saisir une recherche.";
 }
 
 
