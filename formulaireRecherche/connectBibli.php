@@ -8,4 +8,5 @@
 	if ($Bibli->connect_errno) {
 		echo "Echec lors de la connexion à MySQL : (" . $Bibli->connect_errno . ") " . $Bibli->connect_error;
 	}
+	$Bibli->set_charset("utf8");
 ?>
