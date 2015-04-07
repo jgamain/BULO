@@ -73,8 +73,20 @@
 		
 		<!-- INFORMATIONS SUR LE LIVRE -->
 		
-		
-		
+		<?php
+
+	include "connectBibli.php";
+	$stmt = $Bibli->prepare('SELECT titre, nomAuteur, prenomAuteur, nomTraducteur, prenomTraducteur, nomEditeur, nomCollection, anneeEdition, libelleLangue, libelleGenre, nbPage, description
+							 FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur NATURAL LEFT JOIN traduit NATURAL LEFT JOIN traducteur NATURAL JOIN edite NATURAL JOIN editeur NATURAL LEFT JOIN collection NATURAL JOIN est_ecrit_en NATURAL JOIN langue NATURAL LEFT JOIN genre
+							  WHERE numLivre= ?');
+
+	$stmt->bind_param("s", $numero);
+	$stmt->execute();
+	$stmt->bind_result($titre, $nomAuteur, $prenomAuteur, $nomTraducteur, $prenomTraducteur, $nomEditeur, $nomCollection, $anneeEdition, $libelleLangue, $libelleGenre, $nbPage, $description);
+	
+	echo $titre." ".$nomAuteur;	
+
+	?>
 		
 		
 		<script src="bootstrap/js/jquery.js"></script>
