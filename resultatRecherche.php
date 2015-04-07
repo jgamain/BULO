@@ -122,7 +122,7 @@
 				include "connectBibli.php";
 				if (isset($_POST['title'], $_POST['author']) && (!empty($_POST['title'])) && (!empty($_POST['author'])) )
 				{
-					$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre
+					$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre, anneeEdition
 											 FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur 
 											 WHERE lower(titre) LIKE lower(?) AND lower(nomAuteur) = ? ');
 					
@@ -131,7 +131,7 @@
 					$stmt->bind_param("ss", $tit, $auteur);
 					$stmt->execute();
 					$stmt->store_result();
-					$stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
+					$stmt->bind_result($nomAuteur, $prenomAuteur, $titre, $anneeEdition);
 					
 					if($stmt->num_rows== 0)
 							{
@@ -142,7 +142,8 @@
 					while ($stmt->fetch())
 					{
 							echo "<tr onclick=\"document.location.href='pageLivre.php'\"><td>".$titre;
-							echo "<br />Auteur : ".$nomAuteur." ".$prenomAuteur;
+							echo "<br />Par ".$nomAuteur." ".$prenomAuteur;
+							echo "<br />Edité en ".$anneeEdition;
 							echo "<br /></td></tr>";
 						  
 					}
@@ -151,7 +152,7 @@
 				}
 				else if (isset($_POST['title']) && (!empty($_POST['title'])) )
 				{
-					if ($stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre 
+					if ($stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre, anneeEdition
 												 FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur 
 												 WHERE lower(titre) LIKE lower(?)'))
 					{
@@ -159,7 +160,7 @@
 						$stmt->bind_param("s", $titre);
 						$stmt->execute();
 						$stmt->store_result();
-						$stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
+						$stmt->bind_result($nomAuteur, $prenomAuteur, $titre, $anneeEdition);
 
 							if($stmt->num_rows== 0)
 							{
@@ -170,14 +171,15 @@
 							while ($stmt->fetch())
 							{
 								echo "<tr onclick=\"document.location.href='pageLivre.php'\"><td>".$titre;
-								echo "<br />Auteur : ".$nomAuteur." ".$prenomAuteur;
+								echo "<br />Par ".$nomAuteur." ".$prenomAuteur;
+								echo "<br />Edité en ".$anneeEdition;
 								echo "<br /></td></tr>";
 							}
 					}
 				}
 				else if (isset($_POST['genre'], $_POST['author']) && (!empty($_POST['genre'])) && (!empty($_POST['author'])) )
 				{
-						$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre 
+						$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre, anneeEdition
 												FROM genre NATURAL JOIN livre NATURAL JOIN ecrit NATURAL JOIN auteur 
 												WHERE lower(libelleGenre) LIKE lower(?) AND lower(nomAuteur) = ? ');
 						$genre=$_POST['genre'];
@@ -185,7 +187,7 @@
 						$stmt->bind_param("ss", $genre, $auteur);
 						$stmt->execute();
 						$stmt->store_result();
-						$stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
+						$stmt->bind_result($nomAuteur, $prenomAuteur, $titre, $anneeEdition);
 
 							if($stmt->num_rows== 0)
 							{
@@ -196,14 +198,15 @@
 							while ($stmt->fetch())
 							{
 								echo "<tr onclick=\"document.location.href='pageLivre.php'\"><td>".$titre;
-								echo "<br />Auteur : ".$nomAuteur." ".$prenomAuteur;
+								echo "<br />Par ".$nomAuteur." ".$prenomAuteur;
+								echo "<br />Edité en ".$anneeEdition;
 								echo "<br /></td></tr>";
 							}
 				}	
 				else if (isset($_POST['author']) && (!empty($_POST['author'])) )
 				{
 
-						$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre 
+						$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre, anneeEdition
 												 FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur 
 												 WHERE lower(nomAuteur) = ?');
 						
@@ -211,7 +214,7 @@
 						$stmt->bind_param("s", $_POST['author']);
 						$stmt->execute();
 						$stmt->store_result();
-						$stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
+						$stmt->bind_result($nomAuteur, $prenomAuteur, $titre, $anneeEdition);
 
 							if($stmt->num_rows== 0)
 							{
@@ -222,7 +225,8 @@
 							while ($stmt->fetch())
 							{
 								echo "<tr onclick=\"document.location.href='pageLivre.php'\"><td>".$titre;
-								echo "<br />Auteur : ".$nomAuteur." ".$prenomAuteur;
+								echo "<br />Par ".$nomAuteur." ".$prenomAuteur;
+								echo "<br />Edité en ".$anneeEdition;
 								echo "<br /></td></tr>";
 							}
 
@@ -250,7 +254,8 @@
 						while($stmt->fetch())
 						{
 							echo "<tr onclick=\"document.location.href='pageLivre.php'\"><td>".$titre;
-							echo "<br />Auteur : ".$nomAuteur." ".$prenomAuteur;
+							echo "<br />Par ".$nomAuteur." ".$prenomAuteur;
+							echo "<br />Edité en ".$anneeEdition;
 							echo "<br /></td></tr>";
 						}
 							
