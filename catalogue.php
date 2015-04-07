@@ -117,10 +117,10 @@
 			<tbody>
 			
 			<?php
-				$result = $Bibli->query('SELECT titre, nomAuteur, prenomAuteur, anneeEdition FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur');
+				$result = $Bibli->query('SELECT numLivre, titre, nomAuteur, prenomAuteur, anneeEdition FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur');
 				while ($row = $result->fetch_assoc()) {
 			?>
-				<tr onclick="document.location.href='pageLivre.php'">
+				<tr onclick="document.location.href='pageLivre.php?numero=<?php echo $row['numLivre'];?>'">
 					<td><?php echo $row['titre']; ?><br />
 					<?php echo "par ".$row['nomAuteur']." ".$row['prenomAuteur']; ?><br />
 					<?php echo "Edité en ".$row['anneeEdition']; ?><br /></td>
