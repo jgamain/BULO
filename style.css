@@ -71,3 +71,6 @@ img.logo{
   background-color: #af4a77;
   border-color: #8b3a5f;
 }
+tr {
+cursor:pointer;
+}

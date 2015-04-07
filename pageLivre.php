@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
   <title>BULO - Catalogue</title>
@@ -69,68 +69,12 @@
 				</div>
 			</div>
 		</div>
-		<!-- RECHERCHE -->
-		<?php
-			include "connectBibli.php";
-			
-		?>
-		<h3><a href="#" class="couleur">Recherche</a></h3><br />
-		<form class="form-horizontal hidden" method="post" action="resultatRecherche.php">
-			<div class="form-group">
-				<label for="author" class="col-sm-1 control-label">Auteur</label>
-				<div class="col-xs-6">
-					<input type="text" class="form-control" id="author" name="author" placeholder="Nom de l'auteur">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="title" class="col-sm-1 control-label">Titre</label>
-				<div class="col-xs-6">
-					<input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="genre" class="col-sm-1 control-label">Genre</label>
-				<div class="col-xs-6">
-					<select class="form-control" id="genre" name="genre">
-						<option value="">-- Indéfini --</option>
-						<?php
-								$result = $Bibli->query("SELECT libelleGenre FROM genre");
-								while($row = $result->fetch_assoc()){
-									echo "<option value='".$row['libelleGenre']."'>".$row['libelleGenre']."</option>";
-								}
-						?>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-1 col-sm-offset-1">
-				<button type="submit" class="btn btn-violet">Rechercher</button>
-				</div>
-			</div>
-		</form>
 		
-		<!-- LISTE DES LIVRES -->
-		<table class="table table-striped table-hover">
-			<caption>
-				<h3 class="couleur">Catalogue</h3>
-			</caption>
-			<tbody>
-			
-			<?php
-				$result = $Bibli->query('SELECT titre, nomAuteur, prenomAuteur, nomEditeur, anneeEdition FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur NATURAL JOIN edite NATURAL JOIN editeur');
-				while ($row = $result->fetch_assoc()) {
-			?>
-				<tr onclick="document.location.href='pageLivre.php'">
-					<td><?php echo $row['titre']; ?><br />
-					<?php echo "par ".$row['nomAuteur']." ".$row['prenomAuteur']; ?><br />
-					<?php echo "Editions : ".$row['nomEditeur'].", ".$row['anneeEdition']; ?><br /></td>
-				</tr>
-			<?php
-				}
-			?>
-			
-			</tbody>
-		</table>
+		
+		<!-- INFORMATIONS SUR LE LIVRE -->
+		
+		
+		
 		
 		
 		<script src="bootstrap/js/jquery.js"></script>
