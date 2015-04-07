@@ -49,16 +49,22 @@ if (isset($_POST['title'], $_POST['author']) && (!empty($_POST['title'])) && (!e
 {
 	$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre
 							 FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur 
+							 UNION
+						     SELECT nomAuteur, prenomAuteur, titre
+							 FROM livre_electronique NATURAL JOIN livre NATURAL JOIN ecrit NATURAL JOIN auteur
 							 WHERE lower(titre) LIKE lower(?) AND lower(nomAuteur) = ? ');
+	
 	$tit= "%".$_POST['title']."%";
 	$auteur= $_POST['author'];
 	$stmt->bind_param("ss", $tit, $auteur);
 	$stmt->execute();
+	$stmt->store_result();
 	$stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
 	
-	if($stmt->num_rows==0)
+	if($stmt->num_rows== 0)
 			{
 				echo "aucune réponse pour Titre : ".$tit."et pour Auteur : ".$auteur;
+				echo "<br />";
 			}
 
 	while ($stmt->fetch())
@@ -75,16 +81,21 @@ else if (isset($_POST['title']) && (!empty($_POST['title'])) )
 {
 	if ($stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre 
 								 FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur 
+								 UNION
+								 SELECT nomAuteur, prenomAuteur, titre
+								 FROM livre_electronique NATURAL JOIN livre NATURAL JOIN ecrit NATURAL JOIN auteur
 								 WHERE lower(titre) LIKE lower(?)'))
 	{
 		$titre = "%".$_POST['title']."%";
 		$stmt->bind_param("s", $titre);
 		$stmt->execute();
+		$stmt->store_result();
 		$stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
 
-			if($stmt->num_rows==0)
+			if($stmt->num_rows== 0)
 			{
 				echo "aucune réponse pour le Titre : ".$titre;
+				echo "<br />";
 			}
 
 			while ($stmt->fetch())
@@ -98,17 +109,19 @@ else if (isset($_POST['title']) && (!empty($_POST['title'])) )
 else if (isset($_POST['genre'], $_POST['author']) && (!empty($_POST['genre'])) && (!empty($_POST['author'])) )
 {
 		$stmt = $Bibli->prepare('SELECT nomAuteur, prenomAuteur, titre 
-							 FROM genre NATURAL JOIN livre NATURAL JOIN ecrit NATURAL JOIN auteur 
-							 WHERE lower(libelleGenre) LIKE lower(?) AND lower(nomAuteur) = ? ');
+							 	FROM genre NATURAL JOIN livre NATURAL JOIN ecrit NATURAL JOIN auteur 
+							 	WHERE lower(libelleGenre) LIKE lower(?) AND lower(nomAuteur) = ? ');
 		$genre=$_POST['genre'];
 		$auteur= $_POST['author'];
 		$stmt->bind_param("ss", $genre, $auteur);
 		$stmt->execute();
+		$stmt->store_result();
 		$stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
 
-			if($stmt->num_rows==0)
+			if($stmt->num_rows== 0)
 			{
 				echo "aucune réponse pour Genre : ".$genre." et Auteur : ".$auteur;
+				echo "<br />";
 			}
 	
 			while ($stmt->fetch())
@@ -128,11 +141,13 @@ else if (isset($_POST['author']) && (!empty($_POST['author'])) )
 		$auteur =  $_POST['author'];
 		$stmt->bind_param("s", $_POST['author']);
 		$stmt->execute();
+		$stmt->store_result();
 		$stmt->bind_result($nomAuteur, $prenomAuteur, $titre);
 
-			if($stmt->num_rows==0)
+			if($stmt->num_rows== 0)
 			{
 				echo "aucune réponse pour Auteur : ".$auteur;
+				echo "<br />";
 			}
 
 			while ($stmt->fetch())
@@ -145,6 +160,7 @@ else if (isset($_POST['author']) && (!empty($_POST['author'])) )
 }	
 else if (isset($_POST['genre']) && (!empty($_POST['genre'])) )
 {
+	//  var_dump($_POST);
 		$stmt = $Bibli->prepare ('SELECT nomAuteur, prenomAuteur, titre, anneeEdition 
 								   FROM genre NATURAL JOIN livre NATURAL JOIN ecrit NATURAL JOIN auteur 
 								   WHERE lower(libelleGenre) LIKE lower(?) ');
@@ -152,19 +168,23 @@ else if (isset($_POST['genre']) && (!empty($_POST['genre'])) )
 		$genre=$_POST['genre'];
 		$stmt->bind_param("s", $genre);
 		$stmt->execute();
+		$stmt->store_result();
+
+		if($stmt->num_rows == 0)
+		{
+			echo "aucune réponse pour Genre : ".$genre;
+			echo "<br />";
+		}
+
 		$stmt->bind_result($nomAuteur, $prenomAuteur, $titre, $anneeEdition);
-		
-			if($stmt->num_rows==0)
-			{
-				echo "aucune réponse pour Genre : ".$genre;
-			}
+
+		while($stmt->fetch())
+		{
+			echo "Auteur : ".$nomAuteur." ".$prenomAuteur;
+			echo "<br /> Titre :  ".$titre;
+			echo "<br />";
+		}
 			
-			while($stmt->fetch())
-			{
-				 echo "Auteur : ".$nomAuteur." ".$prenomAuteur;
-                 echo "<br /> Titre :  ".$titre;
-                 echo "<br />";
-			}
 				
 }
 else
