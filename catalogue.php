@@ -141,10 +141,13 @@
 					return $(this).parent().find('.content').html();
 				}
 			});
-			
+			$( 'ul.navbar-nav li' ).on('mouseenter mouseleave', function(){
+				$(this).toggleClass('btn-violet');
+			});
 			$( 'h3 a' ).click( function(){
 				$('form').toggleClass('hidden').toggleClass('show');
 			});
+			
 		</script>
 		
 	</body>

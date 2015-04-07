@@ -157,6 +157,10 @@
 				return $(this).parent().find('.content').html();
 			}
 		});
+		$( 'ul.navbar-nav li' ).on('mouseenter mouseleave', function(){
+				$(this).toggleClass('btn-violet');
+		});
+		
 	</script>
   </body>
 </html>

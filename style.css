@@ -8,10 +8,11 @@ body {
 /* header */
 ul.navbar-nav li a {
 	text-align: center;
-	padding-top: 30px;
+	padding-top: 35px;
 }
 ul.navbar-nav li.active a{
-	border-top: 5px solid #9d426b;
+	border-top: 5px solid #af4a77;
+	padding-top: 30px;
 }
 .navbar-inner{
 	padding: 0px  70px;
@@ -61,12 +62,12 @@ img.logo{
   background-color: #ece5e8;
 }
 .couleur{
-	color: #9d426b;
+	color: #af4a77;
 	font-weight: bold;
 	text-decoration: none;
 }
 .btn-violet {
   color: #fff;
-  background-color: #9d426b;
+  background-color: #af4a77;
   border-color: #8b3a5f;
 }
