@@ -73,19 +73,33 @@
 		
 		<!-- INFORMATIONS SUR LE LIVRE -->
 		
-		<?php
+			<?php
 
 	include "connectBibli.php";
 	$stmt = $Bibli->prepare('SELECT titre, nomAuteur, prenomAuteur, nomTraducteur, prenomTraducteur, nomEditeur, nomCollection, anneeEdition, libelleLangue, libelleGenre, nbPage, description
 							 FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur NATURAL LEFT JOIN traduit NATURAL LEFT JOIN traducteur NATURAL JOIN edite NATURAL JOIN editeur NATURAL LEFT JOIN collection NATURAL JOIN est_ecrit_en NATURAL JOIN langue NATURAL LEFT JOIN genre
 							  WHERE numLivre= ?');
-
-	$stmt->bind_param("s", $numero);
+	
+	$stmt->bind_param("i", $_GET['numero']);
 	$stmt->execute();
+	$stmt->store_result();
 	$stmt->bind_result($titre, $nomAuteur, $prenomAuteur, $nomTraducteur, $prenomTraducteur, $nomEditeur, $nomCollection, $anneeEdition, $libelleLangue, $libelleGenre, $nbPage, $description);
 	
-	echo $titre." ".$nomAuteur;	
-
+		if($stmt->num_rows == 0)
+		{
+			echo "Livre introuvable";
+		}
+	
+	while ($stmt->fetch())
+	{
+			echo "Auteur : ".$nomAuteur." ".$prenomAuteur;
+            echo "<br /> Titre :  ".$titre;
+            echo "<br /> Traducteur : ".$nomTraducteur." ".$prenomTraducteur;
+            echo "<br /> Collection : ".$nomCollection;
+            echo "<br /> Editeur : ".$nomEditeur." Année d'édition : ".$anneeEdition;
+            echo "<br>";
+          
+	}
 	?>
 		
 		
