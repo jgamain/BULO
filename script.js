@@ -17,10 +17,9 @@ $('ul.navbar-nav li').on('mouseenter mouseleave', function(){
 $('a.cache').click( function(){
 	$('form.cache').toggleClass('hidden').toggleClass('show');
 });
-/*
-$(document).click(function(event) { 
+
+$('html').click(function(event) { 
 	if(!$(event.target).closest('.popover-markup').length) {
 		$('.popover-markup>.trigger').popover('hide');
     }
 })
-*/
