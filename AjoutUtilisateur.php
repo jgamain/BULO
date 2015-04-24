@@ -9,16 +9,7 @@
 	<body>
 
 	<?php
-		$host = "localhost";
-		$user = "root";
-		$bdd = "BULO";
-		$passwd = "root";
-		$Bibli = new mysqli($host,$user,$passwd,$bdd);
-			if ($Bibli->connect_errno) {
-			echo "Echec lors de la connexion à MySQL : (" . $Bibli->connect_errno . ") " . $Bibli->connect_error;
-		}
-		$Bibli->set_charset('utf8');
-
+		include "connectBibli.php";
 	?>
 
 	<form method="POST" >
