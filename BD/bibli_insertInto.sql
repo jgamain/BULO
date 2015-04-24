@@ -4,7 +4,7 @@ INSERT INTO langue VALUES(2,'anglais');
 INSERT INTO langue VALUES(3,'japonais moderne');
 INSERT INTO langue VALUES(4,'japonais classique');
 -- table GENRE
-INSERT INTO genre VALUES(1,'Histoire');
+INSERT INTO genre VALUES(1,'histoire');
 INSERT INTO genre VALUES(2,'roman');
 INSERT INTO genre VALUES(3,'essai');
 INSERT INTO genre VALUES(4,'poésie');
