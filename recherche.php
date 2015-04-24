@@ -2,7 +2,7 @@
 		include "connectBibli.php";		
 	?>
 		<h3><a href="#" class="couleur cache">Recherche</a></h3><br />
-		<form class="form-horizontal hidden" method="post" action="resultatRecherche.php">
+		<form class="form-horizontal hidden cache" method="post" action="resultatRecherche.php">
 			<div class="form-group">
 				<label for="author" class="col-sm-1 control-label">Auteur</label>
 				<div class="col-xs-6">

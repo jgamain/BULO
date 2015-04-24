@@ -17,7 +17,7 @@
 				include "connectBibli.php";
 			?>
 			<h3><a href="#" class="couleur cache">Ajouter un livre</a></h3><br />
-			<form class="form-horizontal hidden" method="post" action="ajoutLivre.php">
+			<form class="form-horizontal hidden cache" method="post" action="ajoutLivre.php">
 				<div class="form-group">
 					<label for="titre" class="col-sm-2 control-label">Titre</label>
 					<div class="col-sm-6">
