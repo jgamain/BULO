@@ -67,11 +67,11 @@
 		</div>
 	<?php
 
-		if (isset($_POST['nomLecteur'], $_POST['prenomLecteur'], $_POST['numCategorie'], $_POST['mailLecteur'], $_POST['date'], $_POST['login'], $_POST['pwd']) 
+		if (isset($_POST['nomLecteur'], $_POST['prenomLecteur'], $_POST['numCategorie'], $_POST['mailLecteur'], $_POST['login'], $_POST['pwd']) 
 			&& (!empty($_POST['nomLecteur'])) && (!empty($_POST['prenomLecteur'])) && (!empty($_POST['numCategorie'])) && (!empty($_POST['mailLecteur'])) 
-			&& (!empty($_POST['date'])) && (!empty($_POST['login'])) && (!empty($_POST['pwd'])))
-		{
-			$result = var_dump($_POST);
+			&& (!empty($_POST['login'])) && (!empty($_POST['pwd'])))
+			{
+			
 			$stmt = $Bibli->prepare('SELECT nomLecteur, prenomLecteur, numCategorie, mailLecteur, dateInscription, login, mdp
 									 FROM lecteur
 				 					 WHERE lower(nomLecteur) = ? AND lower(prenomLecteur) = ?');
@@ -95,16 +95,22 @@
 				$nom =$_POST['nomLecteur'];
 				$prenom = $_POST['prenomLecteur'];
 				$mail = $_POST['mailLecteur'];
-				$dat = $_POST['date'];
+				$dat = date('y/m/d');
 
 		       	mysqli_stmt_execute($stmt);
+	        
+	        
+	        	echo "vous êtes inscrit ! ";
+		       	echo "<br/> Votre login de connexion est : ".$log;
+		       	echo "<br> votre mot de passe est : ".$mdp;
+		    
 	        }  
-	        else 
+	        
+	        if($stmt -> num_rows !=0)
 	        {
 	             	echo "vous êtes déjà inscrit";
 	        }     
-        }  
-
+	    }
 
 	?>
 		<script src="bootstrap/js/jquery.js"></script>
