@@ -1,4 +1,6 @@
+html{height: 100%;}
 body {
+	min-height: 100%;
 	margin-top: 110px; /* place du header */
 	padding-top: 40px;
 	background-color: #f8f8f8;

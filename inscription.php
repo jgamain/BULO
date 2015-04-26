@@ -116,5 +116,6 @@
 		<script src="bootstrap/js/jquery.js"></script>
 		<script src="bootstrap/js/bootstrap.js"></script>
 		<script src="script.js" ></script>
+		<script> headerActive('#compte'); </script>
 	</body>
 </html>

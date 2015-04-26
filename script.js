@@ -1,3 +1,9 @@
+//Fixe la classe active à l'endroit voulu sur le header
+function headerActive(elem){
+	$('ul.navbar-nav>li').removeClass('active');
+	$(elem).addClass('active');
+}
+
 $('.popover-markup>.trigger').popover({
 	html: true,
 	/*
@@ -28,4 +34,4 @@ $('html').click(function(event) {
         $('#ISBN').toggleClass('hidden').toggleClass('show');
 		$('#coteLivre').toggleClass('hidden').toggleClass('show');
 		$('#lienPDF').toggleClass('hidden').toggleClass('show');
-    });
+});
