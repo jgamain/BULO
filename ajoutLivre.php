@@ -166,6 +166,37 @@
 								$stmt->execute();
 							}
 						}
+						//Traducteurs
+						if($_POST['trad1']!==""){
+							$stmt = $Bibli->prepare('INSERT INTO traduit VALUES(?,?)');
+							$stmt->bind_param('ii', $_POST['trad1'], $numLivre);
+							$stmt->execute();
+						}
+						else if(isset($_POST['nomTrad1'],$_POST['prenomTrad1'])&&(!empty($_POST['nomTrad1'])&&(!empty($_POST['prenomTrad1'])))){
+							$stmt = $Bibli->prepare('INSERT INTO traducteur(nomTraducteur, prenomTraducteur) VALUES (?,?)');
+							$stmt->bind_param('ss', $_POST['nomTrad1'], $_POST['prenomTrad1']);
+							$stmt->execute();
+							$result = $Bibli->query('SELECT max(numTraducteur) as numTraducteur FROM traducteur');
+							$row = $result->fetch_assoc();
+							$stmt = $Bibli->prepare('INSERT INTO traduit VALUES(?,?)');
+							$stmt->bind_param('ii', $row['numTraducteur'], $numLivre);
+							$stmt->execute();
+						}
+						if($_POST['trad2']!==""){
+							$stmt = $Bibli->prepare('INSERT INTO traduit VALUES(?,?)');
+							$stmt->bind_param('ii', $_POST['trad2'], $numLivre);
+							$stmt->execute();
+						}
+						else if(isset($_POST['nomTrad2'],$_POST['prenomTrad2'])&&(!empty($_POST['nomTrad2'])&&(!empty($_POST['prenomTrad2'])))){
+							$stmt = $Bibli->prepare('INSERT INTO traducteur(nomTraducteur, prenomTraducteur) VALUES (?,?)');
+							$stmt->bind_param('ss', $_POST['nomTrad2'], $_POST['prenomTrad2']);
+							$stmt->execute();
+							$result = $Bibli->query('SELECT max(numTraducteur) as numTraducteur FROM traducteur');
+							$row = $result->fetch_assoc();
+							$stmt = $Bibli->prepare('INSERT INTO traduit VALUES(?,?)');
+							$stmt->bind_param('ii', $row['numTraducteur'], $numLivre);
+							$stmt->execute();
+						}
 						//Langues
 						if($_POST['langue1']!==""){
 							$stmt = $Bibli->prepare('INSERT INTO est_ecrit_en VALUES(?,?)');

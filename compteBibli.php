@@ -158,6 +158,41 @@
 					<div class="col-xs-3"><input type="text" class="form-control" name="nomAuteur3" placeholder="Nom de l'auteur"></div>
 					<div class="col-xs-3"><input type="text" class="form-control" name="prenomAuteur3" placeholder="Prénom de l'auteur"></div>
 				</div>
+				<!--TRADUCTEURS-->
+				<div class="form-group">
+					<label for="trad1" class="col-sm-2 control-label">Traducteur 1</label>
+					<div class="col-sm-3">
+						<select class="form-control" id="trad1" name="trad1">
+							<option value="">-- Indéfini --</option>
+							<?php
+									$result = $Bibli->query("SELECT numTraducteur, nomTraducteur, prenomTraducteur FROM traducteur");
+									while($row = $result->fetch_assoc()){
+										echo "<option value='".$row['numTraducteur']."'>".$row['prenomTraducteur']." ".$row['nomTraducteur']."</option>";
+									}
+							?>
+						</select>
+					</div>
+					<label for="newTrad1" class="col-sm-1 control-label">Autre</label>
+					<div class="col-xs-3"><input type="text" class="form-control" name="nomTrad1" placeholder="Nom du traducteur"></div>
+					<div class="col-xs-3"><input type="text" class="form-control" name="prenomTrad1" placeholder="Prénom du traducteur"></div>
+				</div>
+				<div class="form-group">
+					<label for="trad2" class="col-sm-2 control-label">Traducteur 2</label>
+					<div class="col-sm-3">
+						<select class="form-control" id="trad2" name="trad2">
+							<option value="">-- Indéfini --</option>
+							<?php
+									$result = $Bibli->query("SELECT numTraducteur, nomTraducteur, prenomTraducteur FROM traducteur");
+									while($row = $result->fetch_assoc()){
+										echo "<option value='".$row['numTraducteur']."'>".$row['prenomTraducteur']." ".$row['nomTraducteur']."</option>";
+									}
+							?>
+						</select>
+					</div>
+					<label for="newTrad2" class="col-sm-1 control-label">Autre</label>
+					<div class="col-xs-3"><input type="text" class="form-control" name="nomTrad2" placeholder="Nom du traducteur"></div>
+					<div class="col-xs-3"><input type="text" class="form-control" name="prenomTrad2" placeholder="Prénom du traducteur"></div>
+				</div>
 				<!-- Langue -->
 				<div class="form-group">
 					<label for="langue1" class="col-sm-2 control-label">Ecrit en</label>

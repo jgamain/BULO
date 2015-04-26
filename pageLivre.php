@@ -17,26 +17,34 @@
 		?>
 		
 		<!-- INFORMATIONS SUR LE LIVRE -->
-		<div class="container">
-		<?php
-		if(isset($_GET['numero'])){
-			$_GET['numero'] = (int)$_GET['numero'];
-			if($_GET['numero'] != 0){
-				include "connectBibli.php";
-				
-				$stmt = $Bibli->prepare('SELECT titre, anneeEdition, nomCollection, libelleGenre, nbPage, description
-										 FROM livre NATURAL LEFT JOIN collection NATURAL LEFT JOIN genre
-										  WHERE numLivre= ?');
-				$stmt->bind_param("i", $_GET['numero']);
-				$stmt->execute();
-				$stmt->store_result();
-				$stmt->bind_result($titre, $anneeEdition, $nomCollection, $libelleGenre, $nbPage, $description);
-				if($stmt->num_rows != 0)
-				{
-					$stmt->fetch();
+		<div class="row">
+			<div class="col-md-12">
+			<?php
+			if(isset($_GET['numero'])){
+				$_GET['numero'] = (int)$_GET['numero'];
+				if($_GET['numero'] != 0){
+					include "connectBibli.php";
 					
-					echo "<h2>Titre :  ".$titre."</h2>";
-					
+					$stmt = $Bibli->prepare('SELECT titre, anneeEdition, nomCollection, libelleGenre, nbPage, description
+											 FROM livre NATURAL LEFT JOIN collection NATURAL LEFT JOIN genre
+											  WHERE numLivre= ?');
+					$stmt->bind_param("i", $_GET['numero']);
+					$stmt->execute();
+					$stmt->store_result();
+					$stmt->bind_result($titre, $anneeEdition, $nomCollection, $libelleGenre, $nbPage, $description);
+					if($stmt->num_rows != 0)
+					{
+						$stmt->fetch();
+						
+						echo "<h2>".$titre."</h2>";
+					?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<table class="table">
+					<tbody class="th-fixe">
+				<?php
 					// Récupération de la liste d'auteurs
 					$stmtA = $Bibli->prepare('SELECT nomAuteur, prenomAuteur
 												FROM ecrit NATURAL JOIN auteur
@@ -45,11 +53,11 @@
 					$stmtA->execute();
 					$stmtA->bind_result($nomAuteur, $prenomAuteur);
 					$stmtA->fetch();
-					echo "<br /><strong>Auteur(s) : </strong>".$nomAuteur." ".$prenomAuteur;
+					echo "<tr><th>Auteur(s) :</th><td>".$nomAuteur." ".$prenomAuteur;
 					while($stmtA->fetch()){
 						echo " / ".$nomAuteur." ".$prenomAuteur;
 					}
-					
+					echo "</td></tr>";
 					// Récupération de la liste de traducteurs
 					$stmtT = $Bibli->prepare('SELECT nomTraducteur, prenomTraducteur
 												FROM traduit NATURAL JOIN traducteur
@@ -60,12 +68,12 @@
 					$stmtT->bind_result($nomTraducteur, $prenomTraducteur);
 					if($stmtT->num_rows != 0){
 						$stmtT->fetch();
-						echo "<br />Traducteur(s) : ".$nomTraducteur." ".$prenomTraducteur;
+						echo "<tr><th>Traducteur(s) :</th><td>".$nomTraducteur." ".$prenomTraducteur;
 						while($stmtT->fetch()){
 							echo " / ".$nomTraducteur." ".$prenomTraducteur;
 						}
-					}
-					
+						echo "</td></tr>";
+					}				
 					//Récupération de la liste de langues
 					$stmtL = $Bibli->prepare('SELECT libelleLangue
 												FROM est_ecrit_en NATURAL JOIN langue
@@ -74,13 +82,13 @@
 					$stmtL->execute();
 					$stmtL->bind_result($libelleLangue);
 					$stmtL->fetch();
-					echo "<br />Ecrit en : ".$libelleLangue;
+					echo "<tr><th>Ecrit en :</th><td>".$libelleLangue;
 					while($stmtL->fetch()){
 						echo " / ".$libelleLangue;
 					}
-					
+					echo "</td></tr>";
 					if(isset($nomCollection)){
-						echo "<br /> Collection : ".$nomCollection;
+						echo "<tr><th>Collection :</th><td>".$nomCollection."</td></tr>";
 					}
 					//Récupération de la liste d'éditeurs
 					$stmtE = $Bibli->prepare('SELECT nomEditeur
@@ -90,24 +98,40 @@
 					$stmtE->execute();
 					$stmtE->bind_result($nomEditeur);
 					$stmtE->fetch();
-					echo "<br />Editeur(s) : ".$nomEditeur;
+					echo "<tr><th>Editeur(s) :</th><td>".$nomEditeur;
 					while($stmtE->fetch()){
 						echo " / ".$nomEditeur;
 					}
-					
-					echo "<br />Année d'édition : ".$anneeEdition."<br />";
+					echo "</td></tr>";
+					if(isset($anneeEdition)){
+						echo "<tr><th>Année d'édition :</th><td>".$anneeEdition."</td></tr>";
+					}
+					if(isset($libelleGenre)){
+						echo "<tr><th>Genre :</th><td>".$libelleGenre."</td></tr>";
+					}
+					if(isset($nbPage)){
+						echo "<tr><th>Nombre de pages :</th><td>".$nbPage."</td></tr>";
+					}
+					if(isset($description)){
+						echo "<tr><th>Description :</th><td>".$description."</td></tr>";
+					}
+				?>
+					</tbody>
+				</table>
+			</div>
+					<?php
+					}
+					else{
+						echo "<p>Livre introuvable.</p>";
+					}
 				}
 				else{
-					echo "Livre introuvable";
+					echo "<p>Livre introuvable.</p>";
 				}
 			}
-			else{
-				echo "Livre introuvable.";
-			}
-		}
-
-	?>
+		?>
 		</div>
+	</div>
 		
 		<script src="bootstrap/js/jquery.js"></script>
 		<script src="bootstrap/js/bootstrap.js"></script>

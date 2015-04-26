@@ -80,3 +80,6 @@ cursor:pointer;
 .centre{
 	text-align: center;
 }
+.th-fixe th{
+	width:25%;
+}
