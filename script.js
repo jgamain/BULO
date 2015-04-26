@@ -23,3 +23,9 @@ $('html').click(function(event) {
 		$('.popover-markup>.trigger').popover('hide');
     }
 })
+
+ $('input[type=radio][name=typeLivre]').change(function() {
+        $('#ISBN').toggleClass('hidden').toggleClass('show');
+		$('#coteLivre').toggleClass('hidden').toggleClass('show');
+		$('#lienPDF').toggleClass('hidden').toggleClass('show');
+    });
