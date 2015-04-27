@@ -1,5 +1,5 @@
--- create database if not exists projet_gandois_gamain;
--- use projet_gandois_gamain;
+--create database if not exists BULO;
+--use BULO;
 
 CREATE TABLE IF NOT EXISTS genre(
 numGenre INTEGER AUTO_INCREMENT,
@@ -103,8 +103,8 @@ CONSTRAINT FK_categorie_tarif FOREIGN KEY (numTarif) REFERENCES tarif(numTarif)
 
 CREATE TABLE IF NOT EXISTS lecteur (
 numLecteur INTEGER AUTO_INCREMENT,
-login VARCHAR(20) UNIQUE,
-mdp VARCHAR(20),
+login VARCHAR(20)NOT NULL UNIQUE,
+mdp VARCHAR(100)NOT NULL,
 numCategorie INTEGER NOT NULL,
 nomLecteur VARCHAR(50) NOT NULL,
 prenomLecteur VARCHAR(50) NOT NULL,
@@ -214,7 +214,7 @@ CONSTRAINT FK_emprunt_electronique_livre_electronique FOREIGN KEY (numLivre, num
 CREATE TABLE IF NOT EXISTS bibliothecaire(
 numBibliothecaire INTEGER AUTO_INCREMENT,
 login VARCHAR(20) NOT NULL UNIQUE,
-mdp VARCHAR(20) NOT NULL,
+mdp VARCHAR(100) NOT NULL,
 nomBibliothecaire VARCHAR(50) NOT NULL,
 prenomBibliothecaire VARCHAR(50) NOT NULL,
 CONSTRAINT PK_bibliothecaire PRIMARY KEY (numBibliothecaire)

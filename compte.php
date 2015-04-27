@@ -13,7 +13,8 @@
 			<?php
 				include "connectBibli.php";
 				$log = $_POST['login'];
-				$mdp = $_POST['pwd'];
+				$salt = '$5$buloprotectpwd$';
+				$mdp = crypt($_POST['pwd'],$salt);
 				$stmt = $Bibli->prepare('SELECT numLecteur FROM lecteur WHERE lower(login)=lower(?) AND lower(mdp)=lower(?)');
 				$stmt->bind_param("ss", $log, $mdp);
 				$stmt->execute();

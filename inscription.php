@@ -90,7 +90,8 @@
 
 				$num = '';
 				$log = $_POST['login'];
-				$mdp = $_POST['pwd'];
+				$salt = '$5$buloprotectpwd$';
+				$mdp = crypt($_POST['pwd'],$salt);
 				$cat = $_POST['numCategorie'];
 				$nom =$_POST['nomLecteur'];
 				$prenom = $_POST['prenomLecteur'];
@@ -102,7 +103,7 @@
 	        
 	        	echo "vous êtes inscrit ! ";
 		       	echo "<br/> Votre login de connexion est : ".$log;
-		       	echo "<br> votre mot de passe est : ".$mdp;
+		       	echo "<br> votre mot de passe est : ".$_POST['pwd'];
 		    
 	        }  
 	        
