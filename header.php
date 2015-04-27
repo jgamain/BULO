@@ -24,7 +24,7 @@
 								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 								<br />Mon compte
 								<div class="content hide">
-									<form method="post" class="form-popover" action="compte.php">
+									<form method="post" class="form-popover" action="connexion.php">
 										<div class="form-group">
 											<label for="login">Login</label>
 											<input type="text" class="form-control" name="login" id="login" placeholder="Entrez votre login">

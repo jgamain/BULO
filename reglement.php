@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
  
@@ -15,7 +16,7 @@
 		<div class="container">
 			<!-- HEADER -->
 			<?php
-				include "header.html";
+				include "header.php";
 			?>
 			
 			<h1 class="couleur centre"> Règlement intérieur de la bibliothèque </h1>
@@ -96,9 +97,9 @@
 			
 		</div>
 		
-		<script src="bootstrap/js/jquery.js"></script>
-		<script src="bootstrap/js/bootstrap.js"></script>
-		<script src="script.js"></script>
+		<?php
+			include "piedDePage.php";
+		?>
 		<script> headerActive('#infos'); </script>
 	</body>
 	</html>

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<?php session_start(); ?>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <title>BULO - Accueil</title>
@@ -19,7 +20,7 @@
 	<div class="container">
 		<!-- HEADER -->
 		<?php
-			include "header.html";
+			include "header.php";
 		?>
 		<!--CAROUSEL-->
 		<div class="row">
@@ -65,9 +66,9 @@
 		</div>
     </div>
 	
-	<script src="bootstrap/js/jquery.js"></script>
-	<script src="bootstrap/js/bootstrap.js"></script>
-	<script src="script.js" ></script>
+	<?php
+		include "piedDePage.php";
+	?>
 	<script> headerActive('#accueil'); </script>
   </body>
 </html>

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
  
@@ -13,7 +14,7 @@
 	<body>
 		<div class="container">
 			<?php
-				include "header.html";
+				include "header.php";
 				include "connectBibli.php";
 			?>
 			<h1 class="couleur">Inscription</h1>
@@ -114,9 +115,9 @@
 	    }
 
 	?>
-		<script src="bootstrap/js/jquery.js"></script>
-		<script src="bootstrap/js/bootstrap.js"></script>
-		<script src="script.js" ></script>
+		<?php
+			include "piedDePage.php";
+		?>
 		<script> headerActive('#compte'); </script>
 	</body>
 </html>

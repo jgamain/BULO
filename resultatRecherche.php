@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -12,7 +13,7 @@
 	<div class="container">
 		<!-- HEADER & RECHERCHE -->
 		<?php
-			include "header.html";
+			include "header.php";
 			include "recherche.php";
 		?>
 				
@@ -175,9 +176,9 @@
 		</table>
 		</div>
 		
-		<script src="bootstrap/js/jquery.js"></script>
-		<script src="bootstrap/js/bootstrap.js"></script>
-		<script src="script.js"></script>
+		<?php
+			include "piedDePage.php";
+		?>
 		<script> headerActive('#catalogue'); </script>
 	</body>
 </html>

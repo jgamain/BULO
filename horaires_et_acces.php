@@ -1,4 +1,5 @@
 <?php
+session_start();
 // On inclut la classe de Google Maps pour générer ensuite la carte.
 require('GoogleMapAPI.class-2.php');
 
@@ -40,7 +41,7 @@ $map->addMarkerByCoords( 2.40, 48.865, "BULO", "<em>BULO : Bibliotheque de litte
 		<div class="container">
 			<!-- HEADER -->
 			<?php
-				include "header.html";
+				include "header.php";
 			?>
 			
 			<h1 class="couleur centre"> Horaire et accès à la bibliothèque </h1>
@@ -80,9 +81,9 @@ $map->addMarkerByCoords( 2.40, 48.865, "BULO", "<em>BULO : Bibliotheque de litte
 			
 		</div>
 		
-		<script src="bootstrap/js/jquery.js"></script>
-		<script src="bootstrap/js/bootstrap.js"></script>
-		<script src="script.js"></script>
+		<?php
+			include "piedDePage.php";
+		?>
 		<script> headerActive('#infos'); </script>
 	</body>
 </html>
