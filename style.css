@@ -12,7 +12,7 @@ ul.navbar-nav li a {
 	text-align: center;
 	padding-top: 35px;
 }
-ul.navbar-nav li.active a{
+ul.navbar-nav li.active>a{
 	border-top: 5px solid #af4a77;
 	padding-top: 30px;
 }
@@ -33,6 +33,7 @@ img.logo{
 
 /* formulaire de connexion */
 .form-popover{
+	text-align: left;
 	width: 300px;
 }
 .form-popover input{

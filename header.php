@@ -2,11 +2,11 @@
 			<div class="navbar navbar-default navbar-fixed-top">
 				<div class="navbar-inner">
 					<h1 class="navbar-header">
-						<a class="navbar-brand" href="index.html">
+						<a class="navbar-brand" href="index.php">
 							<img src="images/logo.jpg" alt="BULO" class="logo">
 						</a>
 					</h1>
-					<ul class="nav navbar-nav pull-right" id="dd">
+					<ul class="nav navbar-nav pull-right">
 						<li id="accueil">
 							<a href="index.php">
 								<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
