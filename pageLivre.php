@@ -26,13 +26,13 @@
 				if($_GET['numero'] != 0){
 					include "connectBibli.php";
 					
-					$stmt = $Bibli->prepare('SELECT titre, anneeEdition, nomCollection, libelleGenre, nbPage, description
+					$stmt = $Bibli->prepare('SELECT titre, anneeEdition, nomCollection, libelleGenre, nbPage, description, image
 											 FROM livre NATURAL LEFT JOIN collection NATURAL LEFT JOIN genre
 											  WHERE numLivre= ?');
 					$stmt->bind_param("i", $_GET['numero']);
 					$stmt->execute();
 					$stmt->store_result();
-					$stmt->bind_result($titre, $anneeEdition, $nomCollection, $libelleGenre, $nbPage, $description);
+					$stmt->bind_result($titre, $anneeEdition, $nomCollection, $libelleGenre, $nbPage, $description, $image);
 					if($stmt->num_rows != 0)
 					{
 						$stmt->fetch();
@@ -120,6 +120,16 @@
 					</tbody>
 				</table>
 			</div>
+			<?php
+				if($image!=NULL){
+			?>
+				<div class="col-md-3 col-md-offset-1">
+					<img src="images/<?php echo $image ?>" alt="couverture du livre" id="couvLivre">
+				</div>
+			<?php
+				}
+			?>
+			
 					<?php
 					}
 					else{

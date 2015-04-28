@@ -84,3 +84,7 @@ cursor:pointer;
 .th-fixe th{
 	width:25%;
 }
+#couvLivre{
+	max-width: 350px;
+	height: auto;
+}

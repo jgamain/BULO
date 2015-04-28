@@ -3,7 +3,7 @@
 				<div class="navbar-inner">
 					<h1 class="navbar-header">
 						<a class="navbar-brand" href="index.php">
-							<img src="images/logo.jpg" alt="BULO" class="logo">
+							<img src="images/logo.png" alt="BULO" class="logo">
 						</a>
 					</h1>
 					<ul class="nav navbar-nav pull-right">

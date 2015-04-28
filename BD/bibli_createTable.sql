@@ -1,5 +1,5 @@
---create database if not exists BULO;
---use BULO;
+create database if not exists BULO;
+use BULO;
 
 CREATE TABLE IF NOT EXISTS genre(
 numGenre INTEGER AUTO_INCREMENT,
@@ -21,6 +21,7 @@ description VARCHAR(500),
 numGenre INTEGER,
 numCollection INTEGER,
 anneeEdition INTEGER,
+image VARCHAR(100),
 CONSTRAINT PK_livre PRIMARY KEY (numLivre),
 CONSTRAINT FK_livre_genre FOREIGN KEY (numGenre) REFERENCES genre(numGenre),
 CONSTRAINT FK_livre_collection FOREIGN KEY (numCollection) REFERENCES collection(numCollection)
