@@ -35,19 +35,19 @@
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
-						<img src="images/LePontFlottantDesSonges.jpg" alt="Le Pont flottant des songes">
+						<img src="images/LePontFlottantDesSonges.png" alt="Le Pont flottant des songes">
 						<div class="carousel-caption">
 							<p>Le Pont flottant des songes - Junichirô Tanizaki</p>
 						</div>
 					</div>
 					<div class="item">
-						<img src="images/JeSuisUnChat.jpg" alt="Je suis un chat">
+						<img src="images/JeSuisUnChat.png" alt="Je suis un chat">
 						<div class="carousel-caption">
 							<p>Je suis un chat - Natsume Sôseki</p>
 						</div>
 					</div>
 					<div class="item">
-						<img src="images/LeCoupeurDeRoseaux.jpg" alt="Le Coupeur de roseaux">
+						<img src="images/LeCoupeurDeRoseaux.png" alt="Le Coupeur de roseaux">
 						<div class="carousel-caption">
 							<p>Le Coupeur de roseaux - Junichirô Tanizaki</p>
 						</div>
