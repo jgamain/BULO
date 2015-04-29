@@ -26,13 +26,13 @@
 				if($_GET['numero'] != 0){
 					include "connectBibli.php";
 					
-					$stmt = $Bibli->prepare('SELECT titre, anneeEdition, nomCollection, libelleGenre, nbPage, description
+					$stmt = $Bibli->prepare('SELECT titre, anneeEdition, nomCollection, libelleGenre, nbPage, description, image
 											 FROM livre NATURAL LEFT JOIN collection NATURAL LEFT JOIN genre
 											  WHERE numLivre= ?');
 					$stmt->bind_param("i", $_GET['numero']);
 					$stmt->execute();
 					$stmt->store_result();
-					$stmt->bind_result($titre, $anneeEdition, $nomCollection, $libelleGenre, $nbPage, $description);
+					$stmt->bind_result($titre, $anneeEdition, $nomCollection, $libelleGenre, $nbPage, $description, $image);
 					if($stmt->num_rows != 0)
 					{
 						$stmt->fetch();
@@ -116,7 +116,7 @@
 					if(isset($description)){
 						echo "<tr><th>Description :</th><td>".$description."</td></tr>";
 					}
-
+					
 					//récupération des commentaires
 					$stmtC = $Bibli->prepare('SELECT avis FROM commente WHERE numLivre = ?');
 					$stmtC->bind_param("i", $_GET['numero']);
@@ -127,14 +127,21 @@
 						echo "<tr><th>Commentaire :</th><td>".$avis."</td></tr>";
 						}
 					}
-
 				?>
-		
 					</tbody>
 				</table>
-			
-				<div class="container">
-						
+			</div>
+			<?php
+				if($image!=NULL){
+			?>
+				<div class="col-md-3 col-md-offset-1">
+					<img src="images/<?php echo $image ?>" alt="couverture du livre" id="couvLivre">
+				</div>
+			<?php
+				}
+			?>
+		</div>
+		<div class="row">
 			<form class="form-horizontal" method="POST" >
 				<div class="form-group">
 					<label for="textarea">Votre commentaire :</label> </br>
@@ -146,29 +153,18 @@
 			</form>
 			<?php
 
-				if (isset($_POST['question']) && (!empty($_POST['question'])))
-				{
-				$lg = $_SESSION['login'];
-
-				$req = $Bibli->prepare('SELECT numLecteur,login FROM lecteur WHERE lower(login) = :$lg');
-				$req->bind_param("s", $log);
-				$req->execute();
-				$req->store_result();
-				$stmt->bind_result($numLecteur, $logn);
-				
-				$stmt = $Bibli->prepare("INSERT INTO commente VALUES (?, ?, ?)");
-				$stmt->bind_param('iis', $numero, $numlec, $avis);
-				
-				$numero = $_GET['numero'];
-				$numLec = $numLecteur; 
-				$avis = $_POST['question'];
-		       	mysqli_stmt_execute($stmt);
-
+				if (isset($_SESSION['numLecteur']) && isset($_POST['question']) && (!empty($_POST['question'])))
+				{				
+					$stmt = $Bibli->prepare("INSERT INTO commente VALUES (?, ?, ?)");
+					$stmt->bind_param('iis', $numero, $_SESSION['numLecteur'], $avis);
+					
+					$numero = $_GET['numero'];
+					$avis = $_POST['question'];
+					$stmt->execute();
 				}
 
-		?>
-			</div>
-			</div>
+			?>
+		</div>
 					<?php
 					}
 					else{
@@ -180,11 +176,8 @@
 				}
 			}
 		?>
-		</div>
 	</div>
 		
-		
-
 		<?php
 			include "piedDePage.php";
 		?>
