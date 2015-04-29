@@ -49,7 +49,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="horaires_et_acces.php">Horaires et accès</a></li>
 								<li><a href="reglement.php">Règlement intérieur et tarifs</a></li>
-								<li><a href="#">Nous contacter</a></li>
+								<li><a href="contact.php">Nous contacter</a></li>
 							</ul>
 						</li>
 					</ul>

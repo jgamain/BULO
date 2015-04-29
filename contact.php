@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
  
@@ -13,7 +13,9 @@
   </head>
   <body>
     <div class="container">
-      
+		<?php
+			include "header.php";
+		?>
       <h1 class="couleur">Formulaire de contact avec la Bibliotheque BULO</h1>
       
       <form class="form-horizontal" method="POST" >
@@ -31,7 +33,7 @@
         </div>
         <div class="form-group">
           <label for="mailLecteur" class="col-sm-2 control-label"> e-mail : </label>
-          <div class="col-sm-4"><input type="text" class="form-control" name="mail" placeholder="Votre adresse email"></div>
+          <div class="col-sm-4"><input type="email" class="form-control" name="mail" placeholder="Votre adresse email"></div>
         </div>
         <div class="form-group">
           <label for="textarea">Votre question :</label> </br>
@@ -55,4 +57,9 @@ if (isset($_POST['nom'], $_POST['prenom'], $_POST['telephone'],$_POST['mail'],$_
       mail('liloug.0873@gmail.com', 'le sujet', $message, null,
      '-fliloug.0873@gmail.com');
   }
+  
+	include "piedDePage.php";
 ?>
+		<script> headerActive('#infos'); </script>
+	</body>
+</html>
