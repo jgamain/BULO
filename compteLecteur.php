@@ -24,15 +24,10 @@
 			<div class="row">
 				<h3><a href="deconnexion.php" class="couleur">Déconnexion</a></h3>
 			</div>
-
+			
 			<div class="row">
-			<div class="col-md-8">
-				<table class="table">
-					<tbody class="th-fixe">
-
-						<div class="row">
-							<h4> <?php echo "Situation de vos emprunts au : "; echo date("d-m-Y"); ?></h4>
-						</div>
+				<h4 class="couleur"> <?php echo "Situation de vos emprunts au : "; echo date("d-m-Y"); ?></h4>
+			</div>
 					
 					<?php
 					//on récupère les livres papier empruntés et non rendus
@@ -45,20 +40,24 @@
 					$stmtLP->bind_result($isbn, $titre, $cote, $date);
 					if($stmtLP->num_rows != 0)
 					{
-						$stmtLP->fetch();
-						echo "<tr><th>Livre :</th><td>".$titre;
-						echo "<tr><th>ISBN :</th><td>".$isbn;
-						echo "<tr><th>Cote :</th><td>".$cote;
-						echo "<tr><th>Date Emprunt :</th><td>".$date;
-						while($stmtLP->fetch())
-						{
-						echo $titre;
-						echo $isbn;
-						echo $cote;
-						echo $date;
+						while($stmtLP->fetch()){
+						?>
+						<div class="row">
+							<div class="col-md-8">
+								<table class="table">
+									<tbody class="th-fixe">
+							<?php
+									echo "<tr><th>Livre :</th><td>".$titre."</td></tr>";
+									echo "<tr><th>ISBN :</th><td>".$isbn."</td></tr>";
+									echo "<tr><th>Cote :</th><td>".$cote."</td></tr>";
+									echo "<tr><th>Date Emprunt :</th><td>".$date."</td></tr>";
+							?>
+									</tbody>
+								</table><br />
+							</div>
+						</div>
+						<?php
 						}
-					
-					echo "</td></tr>";
 					}
 
 
@@ -73,14 +72,23 @@
 					$stmtLE->bind_result($titre, $lien , $date);
 					if($stmtLE->num_rows != 0)
 					{
-						while ($stmtLE->fetch())
-						{
-						echo "<tr><th>livre électronique :</th><td>".$titre;
-						echo "<tr><th>Lien PDF :</th><td>".$lien;
-						echo "<tr><th>Date Emprunt :</th><td>".$date;
+						while ($stmtLE->fetch()){
+						?>
+						<div class="row">
+							<div class="col-md-8">
+								<table class="table">
+									<tbody class="th-fixe">
+							<?php
+									echo "<tr><th>livre électronique :</th><td>".$titre."</td></tr>";
+									echo "<tr><th>Lien PDF :</th><td><a href='".$lien."'>".$lien."</a></td></tr>";
+									echo "<tr><th>Date Emprunt :</th><td>".$date."</td></tr>";
+							?>
+									</tbody>
+								</table><br />
+							</div>
+						</div>
+						<?php
 						}
-					
-					echo "</td></tr>";
 						
 					}
 	
@@ -95,27 +103,31 @@
 					$stmtT->bind_result($tablette, $date);
 					if($stmtT->num_rows != 0)
 					{
-						while ($stmtT->fetch())
-						{
-						echo "<tr><th>Tablette n° :</th><td>".$tablette;
-						echo "<tr><th>Date Emprunt :</th><td>".$date;
+						while ($stmtT->fetch()){
+						?>
+						<div class="row">
+							<div class="col-md-8">
+								<table class="table">
+									<tbody class="th-fixe">
+							<?php
+									echo "<tr><th>Tablette n° :</th><td>".$tablette."</td></tr>";
+									echo "<tr><th>Date Emprunt :</th><td>".$date."</td></tr>";
+							?>
+									</tbody>
+								</table><br />
+							</div>
+						</div>
+						<?php
 						}
-					
-					echo "</td></tr>";
 						
 					}
 
 					?>
 			</div>
-			</div>
-		
-				</tbody>
-			</table>
-			</div>
 			<?php
 			include "piedDePage.php";
 			?>
-		<script> headerActive('#catalogue'); </script>
+		<script> headerActive('#compte'); </script>
 	</body>
 </html>
 
