@@ -29,6 +29,10 @@
 			<div class="col-md-8">
 				<table class="table">
 					<tbody class="th-fixe">
+
+						<div class="row">
+							<h4> <?php echo "Situation de vos emprunts au : "; echo date("d-m-Y"); ?></h4>
+						</div>
 					
 					<?php
 					//on récupère les livres papier empruntés et non rendus
