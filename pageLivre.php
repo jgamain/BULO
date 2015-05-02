@@ -11,9 +11,25 @@
   </head>
   <body>
 	<div class="container">
-		<!-- HEADER & RECHERCHE -->
 		<?php
 			include "header.php";
+			
+			//Gestion des nouveaux commentaires
+			include "connectBibli.php";
+			if (isset($_SESSION['numLecteur']) && isset($_POST['question']) && (!empty($_POST['question'])))
+				{				
+					$stmt = $Bibli->prepare("INSERT INTO commente VALUES (?, ?, ?)");
+					$stmt->bind_param('iis', $numero, $_SESSION['numLecteur'], $avis);
+					
+					$numero = $_GET['numero'];
+					$avis = $_POST['question'];
+					$stmt->execute();
+					echo "<h4>Votre commentaire a bien été enregistré.<h4>";
+				}
+			else if(isset($_POST['question']) && (!empty($_POST['question']))){
+				echo "<h4>Désolé, seuls les lecteurs connectés peuvent enregistrer un commentaire.<h4>";
+			}
+
 			include "recherche.php";
 		?>
 		
@@ -151,19 +167,6 @@
 					<div class="col-sm-1 col-sm-offset-2"><button type="submit" class="btn btn-violet" name="submit">Valider</button></div>
 				</div>
 			</form>
-			<?php
-
-				if (isset($_SESSION['numLecteur']) && isset($_POST['question']) && (!empty($_POST['question'])))
-				{				
-					$stmt = $Bibli->prepare("INSERT INTO commente VALUES (?, ?, ?)");
-					$stmt->bind_param('iis', $numero, $_SESSION['numLecteur'], $avis);
-					
-					$numero = $_GET['numero'];
-					$avis = $_POST['question'];
-					$stmt->execute();
-				}
-
-			?>
 		</div>
 					<?php
 					}
