@@ -8,7 +8,7 @@ body {
 }
 
 /* header */
-ul.navbar-nav li a {
+ul.navbar-nav li>a {
 	text-align: center;
 	padding-top: 35px;
 }
