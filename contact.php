@@ -52,7 +52,7 @@ if (isset($_POST['nom'], $_POST['prenom'], $_POST['telephone'],$_POST['mail'],$_
 
   {
 
-      $message = "je m'apelle : ".$_POST['prenom']." ".$_POST['nom']."\nMon téléphone : ".$_POST['telephone']."\nMon Mail : ".$_POST['mail']."\nMa question : ".$_POST['question']; 
+      $message = "je m'apelle : ".$_POST['prenom']." ".$_POST['nom']."\nMon téléphone : ".$_POST['telephone']."\nMon Mail : ".$_POST['mail']."\nMa question :\n ".$_POST['question']; 
 
       mail('liloug.0873@gmail.com', 'le sujet', $message, null,
      '-fliloug.0873@gmail.com');
