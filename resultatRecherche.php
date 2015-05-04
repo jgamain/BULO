@@ -40,7 +40,7 @@
 					
 					if($stmt->num_rows== 0)
 							{
-								echo "aucune réponse pour Titre : ".$tit."et pour Auteur : ".$auteur;
+								echo "Aucune réponse pour Titre : ".$_POST['title']."et pour Auteur : ".$_POST['author'];
 								echo "<br />";
 							}
 
@@ -61,15 +61,15 @@
 												 FROM livre NATURAL JOIN ecrit NATURAL JOIN auteur 
 												 WHERE lower(titre) LIKE lower(?)'))
 					{
-						$titre = "%".$_POST['title']."%";
-						$stmt->bind_param("s", $titre);
+						$tit = "%".$_POST['title']."%";
+						$stmt->bind_param("s", $tit);
 						$stmt->execute();
 						$stmt->store_result();
 						$stmt->bind_result($numero, $nomAuteur, $prenomAuteur, $titre, $anneeEdition);
 
 							if($stmt->num_rows== 0)
 							{
-								echo "aucune réponse pour le Titre : ".$titre;
+								echo "Aucune réponse pour le Titre : ".$_POST['title'];
 								echo "<br />";
 							}
 
@@ -86,17 +86,17 @@
 				{
 						$stmt = $Bibli->prepare('SELECT numLivre, nomAuteur, prenomAuteur, titre, anneeEdition
 												FROM genre NATURAL JOIN livre NATURAL JOIN ecrit NATURAL JOIN auteur 
-												WHERE lower(libelleGenre) LIKE lower(?) AND lower(nomAuteur) = ? ');
+												WHERE numGenre = ? AND lower(nomAuteur) = ? ');
 						$genre=$_POST['genre'];
 						$auteur= $_POST['author'];
-						$stmt->bind_param("ss", $genre, $auteur);
+						$stmt->bind_param("is", $genre, $auteur);
 						$stmt->execute();
 						$stmt->store_result();
 						$stmt->bind_result($numero, $nomAuteur, $prenomAuteur, $titre, $anneeEdition);
 
 							if($stmt->num_rows== 0)
 							{
-								echo "aucune réponse pour Genre : ".$genre." et Auteur : ".$auteur;
+								echo "Aucune réponse ce genre et Auteur : ".$_POST['author'];
 								echo "<br />";
 							}
 					
@@ -123,7 +123,7 @@
 
 							if($stmt->num_rows== 0)
 							{
-								echo "aucune réponse pour Auteur : ".$auteur;
+								echo "Aucune réponse pour Auteur : ".$_POST['author'];
 								echo "<br />";
 							}
 
@@ -141,16 +141,16 @@
 					
 						$stmt = $Bibli->prepare ('SELECT numLivre, nomAuteur, prenomAuteur, titre, anneeEdition 
 												   FROM genre NATURAL JOIN livre NATURAL JOIN ecrit NATURAL JOIN auteur 
-												   WHERE lower(libelleGenre) LIKE lower(?) ');
+												   WHERE numGenre = ? ');
 						
 						$genre=$_POST['genre'];
-						$stmt->bind_param("s", $genre);
+						$stmt->bind_param("i", $genre);
 						$stmt->execute();
 						$stmt->store_result();
 
 						if($stmt->num_rows == 0)
 						{
-							echo "aucune réponse pour Genre : ".$genre;
+							echo "Aucune réponse pour ce genre.";
 							echo "<br />";
 						}
 
