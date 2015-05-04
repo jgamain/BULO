@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+﻿<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -24,11 +24,7 @@
 			<div class="row">
 				<h3><a href="deconnexion.php" class="couleur">Déconnexion</a></h3>
 			</div>
-			
-			<div class="row">
-				<h4 class="couleur"> <?php echo "Situation de vos emprunts au : "; echo date("d-m-Y"); ?></h4>
-			</div>
-					
+
 					<?php
 					//on récupère les livres papier empruntés et non rendus
 					$stmtLP = $Bibli->prepare('SELECT ISBN, titre, coteLivre,dateEmprunt
@@ -38,8 +34,31 @@
 					$stmtLP->execute();
 					$stmtLP->store_result();
 					$stmtLP->bind_result($isbn, $titre, $cote, $date);
-					if($stmtLP->num_rows != 0)
-					{
+					
+					//on récupère les livres_électroniques en cours d'emprunt
+					$stmtLE = $Bibli->prepare('SELECT titre, lienPDF, dateEmprunt
+											   FROM livre natural join livre_electronique natural join emprunt natural join emprunt_electronique
+											   WHERE numLecteur = ?');
+					$stmtLE->bind_param("i", $_SESSION['numLecteur']);
+					$stmtLE->execute();
+					$stmtLE->store_result();
+					$stmtLE->bind_result($titre, $lien , $date);
+					
+					//on récupère les tablettes en cours d'emprunt
+						$stmtT = $Bibli->prepare('SELECT numTablette, dateEmprunt
+												  FROM emprunt natural join emprunt_tablette
+												  WHERE tablRendu = false and numLecteur = ?');
+						$stmtT->bind_param("i", $_SESSION['numLecteur']);
+						$stmtT->execute();
+						$stmtT->store_result();
+						$stmtT->bind_result($tablette, $date);
+					
+					if($stmtLP->num_rows != 0 || $stmtLE->num_rows != 0 || $stmtT->num_rows != 0){
+						?>
+							<div class="row">
+								<h4 class="couleur"> <?php echo "Situation de vos emprunts au ".date("d-m-Y")." :"; ?></h4>
+							</div>
+						<?php
 						while($stmtLP->fetch()){
 						?>
 						<div class="row">
@@ -58,20 +77,7 @@
 						</div>
 						<?php
 						}
-					}
 
-
-					//on récupère les livres_électroniques en cours d'emprunt
-
-					$stmtLE = $Bibli->prepare('SELECT titre, lienPDF, dateEmprunt
-											   FROM livre natural join livre_electronique natural join emprunt natural join emprunt_electronique
-											   WHERE numLecteur = ?');
-					$stmtLE->bind_param("i", $_SESSION['numLecteur']);
-					$stmtLE->execute();
-					$stmtLE->store_result();
-					$stmtLE->bind_result($titre, $lien , $date);
-					if($stmtLE->num_rows != 0)
-					{
 						while ($stmtLE->fetch()){
 						?>
 						<div class="row">
@@ -89,20 +95,7 @@
 						</div>
 						<?php
 						}
-						
-					}
-	
-					//on récupère les tablettes en cours d'emprunt
 
-					$stmtT = $Bibli->prepare('SELECT numTablette, dateEmprunt
-											  FROM emprunt natural join emprunt_tablette
-											  WHERE tablRendu = false and numLecteur = ?');
-					$stmtT->bind_param("i", $_SESSION['numLecteur']);
-					$stmtT->execute();
-					$stmtT->store_result();
-					$stmtT->bind_result($tablette, $date);
-					if($stmtT->num_rows != 0)
-					{
 						while ($stmtT->fetch()){
 						?>
 						<div class="row">
@@ -118,15 +111,20 @@
 							</div>
 						</div>
 						<?php
-						}
-						
+						}	
 					}
-
+					else{
+						?>
+							<div class="row">
+								<h4 class="couleur"> <?php echo "Vous n'avez pas d'emprunt en cours."; ?></h4>
+							</div>
+						<?php
+					}
 					?>
-			</div>
-			<?php
+		</div>
+		<?php
 			include "piedDePage.php";
-			?>
+		?>
 		<script> headerActive('#compte'); </script>
 	</body>
 </html>

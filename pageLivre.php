@@ -81,10 +81,8 @@
 												WHERE numLivre = ?');
 					$stmtT->bind_param("i", $_GET['numero']);
 					$stmtT->execute();
-					$stmtT->store_result();
 					$stmtT->bind_result($nomTraducteur, $prenomTraducteur);
-					if($stmtT->num_rows != 0){
-						$stmtT->fetch();
+					if($stmtT->fetch()){
 						echo "<tr><th>Traducteur(s) :</th><td>".$nomTraducteur." ".$prenomTraducteur;
 						while($stmtT->fetch()){
 							echo " / ".$nomTraducteur." ".$prenomTraducteur;
@@ -98,12 +96,13 @@
 					$stmtL->bind_param("i", $_GET['numero']);
 					$stmtL->execute();
 					$stmtL->bind_result($libelleLangue);
-					$stmtL->fetch();
-					echo "<tr><th>Ecrit en :</th><td>".$libelleLangue;
-					while($stmtL->fetch()){
-						echo " / ".$libelleLangue;
+					if($stmtL->fetch()){
+						echo "<tr><th>Ecrit en :</th><td>".$libelleLangue;
+						while($stmtL->fetch()){
+							echo " / ".$libelleLangue;
+						}
+						echo "</td></tr>";
 					}
-					echo "</td></tr>";
 					if(isset($nomCollection)){
 						echo "<tr><th>Collection :</th><td>".$nomCollection."</td></tr>";
 					}
@@ -138,9 +137,10 @@
 					$stmtC->bind_param("i", $_GET['numero']);
 					$stmtC->execute();
 					$stmtC->bind_result($avis);
-					while($stmtC->fetch()){
-						if (isset($avis)){
-						echo "<tr><th>Commentaire :</th><td>".$avis."</td></tr>";
+					if($stmtC->fetch()){
+						echo "<tr><th>Commentaire(s) :</th><td>".$avis."</td></tr>";
+						while($stmtC->fetch()){
+							echo "<tr><th></th><td>".$avis."</td></tr>";
 						}
 					}
 				?>
