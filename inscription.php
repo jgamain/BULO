@@ -65,14 +65,13 @@
 				</div>
 			</form>
 	
-		</div>
 	<?php
 
 		if (isset($_POST['nomLecteur'], $_POST['prenomLecteur'], $_POST['numCategorie'], $_POST['mailLecteur'], $_POST['login'], $_POST['pwd']) 
 			&& (!empty($_POST['nomLecteur'])) && (!empty($_POST['prenomLecteur'])) && (!empty($_POST['numCategorie'])) && (!empty($_POST['mailLecteur'])) 
 			&& (!empty($_POST['login'])) && (!empty($_POST['pwd'])))
 			{
-			
+
 			$stmt = $Bibli->prepare('SELECT nomLecteur, prenomLecteur, numCategorie, mailLecteur, dateInscription, login, mdp
 									 FROM lecteur
 				 					 WHERE lower(nomLecteur) = ? AND lower(prenomLecteur) = ?');
@@ -86,35 +85,51 @@
 
 			if($stmt -> num_rows == 0)
 			{
-				$stmt = $Bibli->prepare("INSERT INTO lecteur VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-				$stmt->bind_param('ississss', $num, $log, $mdp, $cat, $nom, $prenom, $mail, $dat);
+				$stmtLog = $Bibli->prepare("SELECT '...' FROM dual WHERE lower(?) IN (SELECT lower(login)FROM lecteur) OR lower(?) IN (SELECT lower(login)FROM lecteur)");
+				$stmtLog->bind_param('ss',$_POST['login'],$_POST['login']);
+				$stmtLog->execute();
+				/*
+				$stmtL = $Bibli->prepare("SELECT numLecteur FROM lecteur WHERE lower(login)=lower(?)");
+				$stmtL->bind_param('s',$_POST['login']);
+				$stmtL->execute();
+				$stmtB = $Bibli->prepare("SELECT numBibliothecaire FROM bibliothecaire WHERE lower(login)=lower(?)");
+				$stmtB->bind_param('s',$_POST['login']);
+				$stmtB->execute();
+				*/
+				if($stmtLog->fetch()){
+					echo "Ce login est déjà pris.";
+				}
+				else{
+					$stmt = $Bibli->prepare("INSERT INTO lecteur VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+					$stmt->bind_param('ississss', $num, $log, $mdp, $cat, $nom, $prenom, $mail, $dat);
 
-				$num = '';
-				$log = $_POST['login'];
-				$salt = '$5$buloprotectpwd$';
-				$mdp = crypt($_POST['pwd'],$salt);
-				$cat = $_POST['numCategorie'];
-				$nom =$_POST['nomLecteur'];
-				$prenom = $_POST['prenomLecteur'];
-				$mail = $_POST['mailLecteur'];
-				$dat = date('y/m/d');
+					$num = '';
+					$log = $_POST['login'];
+					$salt = '$5$buloprotectpwd$';
+					$mdp = crypt($_POST['pwd'],$salt);
+					$cat = $_POST['numCategorie'];
+					$nom =$_POST['nomLecteur'];
+					$prenom = $_POST['prenomLecteur'];
+					$mail = $_POST['mailLecteur'];
+					$dat = date('y/m/d');
 
-		       	mysqli_stmt_execute($stmt);
-	        
-	        
-	        	echo "vous êtes inscrit ! ";
-		       	echo "<br/> Votre login de connexion est : ".$log;
-		       	echo "<br> votre mot de passe est : ".$_POST['pwd'];
-		    
+					$stmt->execute();
+				
+				
+					echo "vous êtes inscrit ! ";
+					echo "<br/> Votre login de connexion est : ".$log;
+					echo "<br> votre mot de passe est : ".$_POST['pwd'];
+				}
 	        }  
-	        
-	        if($stmt -> num_rows !=0)
-	        {
+	        else{
 	             	echo "vous êtes déjà inscrit";
 	        }     
 	    }
-
+		else if($_SERVER['REQUEST_METHOD'] == "POST"){
+			echo "Veuillez remplir tous les champs.";
+		}
 	?>
+		</div>
 		<?php
 			include "piedDePage.php";
 		?>
